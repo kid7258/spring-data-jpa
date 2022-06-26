@@ -58,4 +58,18 @@ public class MemberRepositoryTest {
         long deletedCount = memberRepository.count();
         assertThat(deletedCount).isEqualTo(0);
     }
+
+    @Test
+    public void findByUsernameAndAgeGreaterThan() {
+        Member memberA = new Member("memberA", 10);
+        Member memberB = new Member("memberA", 20);
+        memberRepository.save(memberA);
+        memberRepository.save(memberB);
+
+        List<Member> findMembers = memberRepository.findByUsernameAndAgeGreaterThan("memberA", 15);
+
+        assertThat(findMembers.get(0).getUsername()).isEqualTo("memberA");
+        assertThat(findMembers.get(0).getAge()).isEqualTo(20);
+        assertThat(findMembers.size()).isEqualTo(1);
+    }
 }
