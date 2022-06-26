@@ -7,6 +7,7 @@ import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
@@ -17,4 +18,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "SELECT new study.datajpa.dto.MemberDto(m.id, m.username, t.name) FROM Member m join m.team t")
     List<MemberDto> findMemberDto();
+
+    List<Member> findListByUsername(String username);
+
+    Member findMemberByUsername(String username);
+
+    Optional<Member> findOptionalByUsername(String username);
 }

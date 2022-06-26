@@ -10,6 +10,7 @@ import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -99,5 +100,21 @@ public class MemberRepositoryTest {
         for (MemberDto dto : memberDto) {
             System.out.println("dto = " + dto);
         }
+    }
+
+    @Test
+    public void returnType() {
+        Member memberA = new Member("memberA", 10);
+        memberRepository.save(memberA);
+
+        // 매칭되는 값이 없더라도 빈 리스트를 반환
+        List<Member> members = memberRepository.findListByUsername("memberA");
+
+        // 매칭되는 값이 없다면, null
+        Member member = memberRepository.findMemberByUsername("memberA");
+        System.out.println("member = " + member);
+
+        // Optional
+        Optional<Member> findMember = memberRepository.findOptionalByUsername("memberA");
     }
 }
